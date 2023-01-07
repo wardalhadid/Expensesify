@@ -40,7 +40,7 @@ export const expensesSlice = createSlice({
         date: (action.payload.hasOwnProperty('date')) ? action.payload.date : expense.date,
         id: action.payload.id
        }
-         state = state.splice(state.findIndex(expense => expense.id === action.payload.id), 1).push(editedExpense)
+       state = state.splice(state.findIndex(expense => expense.id === action.payload.id), 1, editedExpense)
     },
 }
 })
