@@ -2,24 +2,27 @@ import { Label, TextInput, Button, Select } from "flowbite-react";
 import {v4 as uuid} from 'uuid';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import { add } from '../features/expensesReducer';
 
 export default function AddExpenseForm() {
-  const [addExpense, setAddExpense] = useState({id: uuid()});
+  const dispatch = useDispatch();
+  const [addedExpense, setAddedExpense] = useState({id: uuid()});
   const handleOnNameChange = (e) => {
     let addedName = {name: e.target.value}
-    setAddExpense((addExpense) => ({...addExpense, ...addedName}))
+    setAddedExpense((addExpense) => ({...addExpense, ...addedName}))
   }
   const handleOnAmountChange = (e) => {
     let addedAmount = {amount: parseInt(e.target.value)}
-    setAddExpense((addExpense) => ({...addExpense, ...addedAmount}))
+    setAddedExpense((addExpense) => ({...addExpense, ...addedAmount}))
   }
   const handleOnDateChange = (e) => {
     let addedDate = {date: e.target.value}
-    setAddExpense((addExpense) => ({...addExpense, ...addedDate}))
+    setAddedExpense((addExpense) => ({...addExpense, ...addedDate}))
   }
   const handleOnCategoryChange = (e) => {
     let addedCategory = {category: e.target.value}
-    setAddExpense((addExpense) => ({...addExpense, ...addedCategory}))
+    setAddedExpense((addExpense) => ({...addExpense, ...addedCategory}))
   }
 
     return(
@@ -109,8 +112,9 @@ export default function AddExpenseForm() {
       color="success"
       size="xl"
       pill={true}
+      onClick={() => dispatch(add(addedExpense))}
       >
-        <Link to="/" state={{addExpense}}>
+        <Link to="/">
         Submit
         </Link>
     </Button>

@@ -1,23 +1,30 @@
 import { Label, TextInput, Button, Select } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { remove, edit } from '../features/expensesReducer';
 import { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
 
-export default function EditExpenseForm(params) {
-  const location = useLocation();
-  const selectedid = useParams().id;
-  const expenses = location.state?.expenses;
-  
-  
-  let exp = {
-    name: '', amount: 0, category: '', date: ''
+export default function EditExpenseForm() {
+  const dispatch = useDispatch();
+  const selectedId = useParams().id;
+  const expenses = useSelector(state => state.expenses);
+  const expense = expenses.filter(expense => expense.id === selectedId)[0];
+  const [edited, setEdited] = useState({id:selectedId});
+  const onNameChange = (e) => {
+    const name = e.target.value;
+    setEdited(o => ({...o, name}))
   }
-  for (const key in expenses) {
-        if (expenses[parseInt(key)].id == selectedid){
-              exp.name =  expenses[parseInt(key)].name
-              exp.amount = expenses[parseInt(key)].amount
-              exp.category = expenses[parseInt(key)].category
-              exp.date = expenses[parseInt(key)].date
-        }
+  const onAmountChange = (e) => {
+    const amount = e.target.value
+    setEdited(o => ({...o, amount: parseInt(amount)}))
+  }
+  const onDateChange = (e) => {
+    const date = e.target.value
+    setEdited(o => ({...o, date}))
+  }
+  const onCategoryChange = (e) => {
+    const category = e.target.value
+    setEdited(o => ({...o, category}))
   }
   return(
    <div className="flex flex-col gap-4 mx-auto w-10/12">
@@ -32,21 +39,23 @@ export default function EditExpenseForm(params) {
       id="small"
       type="text"
       sizing="sm"
-      placeholder={exp.name}
+      placeholder={expense.name}
+      onChange={onNameChange}
     />
   </div>
   <div>
     <div className="mb-2 block">
       <Label
         htmlFor="amount"
-        value="Amount"
+        value={"Amount"}
       />
     </div>
     <TextInput
       id="amount"
       type="currency"
       sizing="sm"
-      placeholder={exp.amount}
+      placeholder={expense.amount}
+      onChange={onAmountChange}
     />
   </div>
   <div>
@@ -60,8 +69,7 @@ export default function EditExpenseForm(params) {
       id="date"
       type="date"
       sizing="sm"
-      value={exp.date}
-      onChange={(e) => e.target.value}
+      onChange={onDateChange}
     />
   </div>
   <div>
@@ -73,7 +81,8 @@ export default function EditExpenseForm(params) {
     </div>
     <Select
       id="select"
-      defaultValue={exp.category}
+      placeholder={expense.category}
+      onChange={onCategoryChange}
     >
     <option>
       Rent
@@ -102,18 +111,25 @@ export default function EditExpenseForm(params) {
     </Select>
   </div>
   <div className="mx-auto flex gap-6">
+  <Link to ="/">
     <Button
       color="success"
       size="xl"
+      onClick={() => dispatch(edit(edited))}
         >
       Update
     </Button>
+    </Link>
+    <Link to ="/">
     <Button
       color="failure"
       size="xl"
+      onClick={() => dispatch(remove(selectedId))}
       >
       Delete
     </Button>
+    </Link>
+    
   </div>
 </div>
     );

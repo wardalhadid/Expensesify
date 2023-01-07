@@ -1,4 +1,4 @@
-import {Label, TextInput, Checkbox, Button} from 'flowbite-react';
+import {Label, TextInput, Button} from 'flowbite-react';
 
 export default function Login () {
     return(
@@ -33,11 +33,7 @@ export default function Login () {
   </div>
   <div className="flex items-center gap-2">
     <Label htmlFor="signup">
-      Sign up  <a href="#"
-      className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-      >
-        here
-        </a>
+      Sign up  
     </Label>
   </div>
   <Button type="submit">

@@ -1,6 +1,7 @@
 import { Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
+import { useSelector } from "react-redux";
 
 export default function Expenses () {
     return(
@@ -11,8 +12,8 @@ export default function Expenses () {
     );
 }
 
-export function ExpensesTable (...expenses) {
-  const expensesArray = expenses[0].expenses;
+export function ExpensesTable () {
+  const expenses = useSelector((state) => state.expenses);
   return(
       <div className="w-10/12 mx-auto my-8">
       <Table 
@@ -38,7 +39,7 @@ export function ExpensesTable (...expenses) {
   </Table.HeadCell>
 </Table.Head>
 <Table.Body className="divide-y">
-  {expensesArray.map(({name, date, category, amount, id}) => (
+  {expenses.map(({name, date, category, amount, id}) => (
   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={name} >
     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
       {name}
