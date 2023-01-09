@@ -8,29 +8,24 @@ export default function Nav() {
   rounded={true}
 >
   <Navbar.Brand>
-    <Link to="/">
     <img
       src={require("../logo.jpg")}
       className="mr-3 h-6 sm:h-9"
       alt="Logo"
     />
-    </Link>
-    <Link to="/">
     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
       Expensesify
     </span>
-    </Link>
   </Navbar.Brand>
   <Navbar.Toggle />
   <Navbar.Collapse>
-    <Navbar.Link
+    <Link
       active={true}
+      to="/"
     >
-      <Link to="/">
       Home
-      </Link>
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">
+    </Link>
+    <Navbar.Link>
       Logout
     </Navbar.Link>
   </Navbar.Collapse>

@@ -108,16 +108,16 @@ export default function AddExpenseForm() {
     </Select>
   </div>
   <div className="mx-auto">
+  <Link to="/">
     <Button
       color="success"
       size="xl"
       pill={true}
       onClick={() => dispatch(add(addedExpense))}
       >
-        <Link to="/">
         Submit
-        </Link>
     </Button>
+    </Link>
   </div>
 </div>
     );

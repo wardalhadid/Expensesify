@@ -1,5 +1,5 @@
 import { Sidebar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Side () {
     return (
@@ -8,9 +8,9 @@ export default function Side () {
     <Sidebar.Items>
       <Sidebar.ItemGroup>
         <Sidebar.Item>
-         <Link to="add-expense">
+         <NavLink to="add-expense">
           Add Expense
-         </Link>
+         </NavLink>
         </Sidebar.Item>
         <Sidebar.Item>
          <Link to="expenses">
