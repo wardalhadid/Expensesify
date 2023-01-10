@@ -3,7 +3,7 @@ import {v4 as uuid} from 'uuid';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import { add } from '../features/expensesReducer';
+import { add } from '../slices/expensesReducer';
 
 export default function AddExpenseForm() {
   const dispatch = useDispatch();

@@ -11,7 +11,6 @@ import Login from './Routes/Login';
 import AddExpense from './Routes/AddExpense';
 import Expenses from "./Routes/Expenses";
 import ErrorPage from "./ErrorPage";
-import ReceiptHub from './Routes/ReceiptHub';
 import EditExpense from './Routes/EditExpense';
 import { Provider } from 'react-redux'
 import store from './store/store'
@@ -27,11 +26,6 @@ const router = createBrowserRouter([
     element: <AddExpense />,
     errorElement: <ErrorPage />,
   },
-    {
-      path: "/receipt-hub",
-      element: <ReceiptHub />,
-      errorElement: <ErrorPage />,
-    },
     {
       path: "/expenses",
       element: <Expenses />,

@@ -1,4 +1,3 @@
-import ReceiptsTable from '../components/ReceiptsTable';
 import Nav from '../components/Nav';
 import { ExpensesTable } from '../Routes/Expenses'; 
 import Side from '../components/Side';
@@ -13,7 +12,6 @@ function App() {
      <Side />
      <div className='w-4/5'>
       <ExpensesTable />
-      <ReceiptsTable />
      </div>
      </div>
     

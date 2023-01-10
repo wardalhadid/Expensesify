@@ -1,7 +1,7 @@
 import { Label, TextInput, Button, Select } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { remove, edit } from '../features/expensesReducer';
+import { remove, edit } from '../slices/expensesReducer';
 import { useState } from "react";
 
 export default function EditExpenseForm() {
@@ -70,6 +70,7 @@ export default function EditExpenseForm() {
       type="date"
       sizing="sm"
       onChange={onDateChange}
+      value={(edited.date) ? edited.date : expense.date}
     />
   </div>
   <div>
@@ -81,9 +82,11 @@ export default function EditExpenseForm() {
     </div>
     <Select
       id="select"
-      placeholder={expense.category}
       onChange={onCategoryChange}
     >
+    <option default>
+      {expense.category}
+    </option>
     <option>
       Rent
     </option>

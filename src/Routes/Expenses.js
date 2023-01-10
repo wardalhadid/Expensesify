@@ -16,7 +16,9 @@ export default function Expenses () {
 
 export function ExpensesTable () {
   const expenses = useSelector((state) => state.expenses);
+  const sortBy = useSelector((state) => state.sortExpenses.sort)
   const filterExpenses= useSelector((state) => state.filterExpenses.filter.toLowerCase());
+  console.log(sortBy)
 
   return(
     <div className="w-10/12 mx-auto my-8">
@@ -43,7 +45,7 @@ export function ExpensesTable () {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {expenses.filter(expense => expense.name.toLowerCase().includes(filterExpenses)).map(({name, date, category, amount, id}) => (
+          {expenses.filter(expense => expense.name.toLowerCase().includes(filterExpenses)).sort((a, b) => (a[sortBy] > b[sortBy]) ? -1 : 1).map(({name, date, category, amount, id}) => (
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={name} >
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {name}

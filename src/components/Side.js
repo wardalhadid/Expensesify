@@ -17,11 +17,6 @@ export default function Side () {
          Expenses
          </Link>
         </Sidebar.Item>
-        <Sidebar.Item>
-          <Link to="receipt-hub">
-          Receipts Hub
-          </Link>
-        </Sidebar.Item>
        </Sidebar.ItemGroup>
      </Sidebar.Items>
    </Sidebar>

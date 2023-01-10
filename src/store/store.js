@@ -1,10 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
-import expensesReducer from '../features/expensesReducer'
-import filterExpensesReducer from '../features/filterExpensesReducer'
+import { configureStore } from '@reduxjs/toolkit';
+import expensesReducer from '../slices/expensesReducer';
+import filterExpensesReducer from '../slices/filterExpensesReducer';
+import sortExpensesReducer from '../slices/sortExpensesReducer';
 
 export default configureStore({
   reducer: {
     expenses: expensesReducer,
-    filterExpenses: filterExpensesReducer
+    filterExpenses: filterExpensesReducer,
+    sortExpenses: sortExpensesReducer,
   },
 })
