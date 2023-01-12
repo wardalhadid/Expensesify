@@ -1,5 +1,5 @@
 import { Sidebar } from "flowbite-react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Side () {
     return (
@@ -7,15 +7,11 @@ export default function Side () {
   <Sidebar aria-label="Sidebar with content separator example">
     <Sidebar.Items>
       <Sidebar.ItemGroup>
-        <Sidebar.Item>
-         <NavLink to="add-expense">
+        <Sidebar.Item as={Link} to="add-expense">
           Add Expense
-         </NavLink>
         </Sidebar.Item>
-        <Sidebar.Item>
-         <Link to="expenses">
+        <Sidebar.Item as={Link} to="expenses">
          Expenses
-         </Link>
         </Sidebar.Item>
        </Sidebar.ItemGroup>
      </Sidebar.Items>

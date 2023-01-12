@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import { add } from '../slices/expensesReducer';
+import axios from "axios";
 
 export default function AddExpenseForm() {
   const dispatch = useDispatch();
@@ -23,6 +24,14 @@ export default function AddExpenseForm() {
   const handleOnCategoryChange = (e) => {
     let addedCategory = {category: e.target.value}
     setAddedExpense((addExpense) => ({...addExpense, ...addedCategory}))
+  }
+
+  const handleOnSubmit = () => {
+    const DBAddExpense = addedExpense
+     axios.post('http://localhost:8000/api/add-expense', {...DBAddExpense})
+     .then(res => console.log(res))
+    .catch(err => window.alert(err));
+    dispatch(add(addedExpense));
   }
 
     return(
@@ -113,7 +122,7 @@ export default function AddExpenseForm() {
       color="success"
       size="xl"
       pill={true}
-      onClick={() => dispatch(add(addedExpense))}
+      onClick={handleOnSubmit}
       >
         Submit
     </Button>

@@ -3,27 +3,30 @@ import {v4 as uuid } from 'uuid';
 
 export const expensesSlice = createSlice({
   name: 'expenses',
-  initialState: [
-    {name: "Rent",
-   amount: 1200,
-   category: "Rent",
-   date: "2022-01-01",
-   id: uuid()
-   },
-   {name: "Energy",
-   amount: 200,
-   category: "Utilities",
-   date: "2022-01-05",
-   id: uuid()
-   },
-   {name: "Car Payment",
-   amount: 550,
-   category: "Tranportation",
-   date: "2022-01-16",
-   id: uuid()
-   }
+    initialState: [
+  //   {name: "Rent",
+  //  amount: 1200,
+  //  category: "Rent",
+  //  date: "2022-01-01",
+  //  id: uuid()
+  //  },
+  //  {name: "Energy",
+  //  amount: 200,
+  //  category: "Utilities",
+  //  date: "2022-01-05",
+  //  id: uuid()
+  //  },
+  //  {name: "Car Payment",
+  //  amount: 550,
+  //  category: "Tranportation",
+  //  date: "2022-01-16",
+  //  id: uuid()
+  //  }
   ],
   reducers: {
+    importFromDB: (state, action) => {
+        state = state.push(action.payload)
+    },
     add: (state, action) => {
       state = state.push(action.payload);
     },
@@ -45,6 +48,6 @@ export const expensesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { add, remove, edit } = expensesSlice.actions
+export const { add, remove, edit, importFromDB } = expensesSlice.actions
 
 export default expensesSlice.reducer

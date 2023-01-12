@@ -5,26 +5,23 @@ import Search from "../components/Search";
 import { useSelector } from "react-redux";
 
 export default function Expenses () {
-    return(
-        <div>
-          <Nav />
-          <Search />
-          <ExpensesTable /> 
-        </div>
-    );
+  return(
+    <div>
+      <Nav />
+      <Search />
+      <ExpensesTable /> 
+    </div>
+  );
 }
 
 export function ExpensesTable () {
   const expenses = useSelector((state) => state.expenses);
+  console.log(expenses)
   const sortBy = useSelector((state) => state.sortExpenses.sort)
   const filterExpenses= useSelector((state) => state.filterExpenses.filter.toLowerCase());
-  console.log(sortBy)
-
   return(
     <div className="w-10/12 mx-auto my-8">
-      <Table 
-      hoverable={true}
-      >
+      <Table hoverable={true}>
         <Table.Head>
           <Table.HeadCell>
             Name
@@ -46,30 +43,30 @@ export function ExpensesTable () {
         </Table.Head>
         <Table.Body className="divide-y">
           {expenses.filter(expense => expense.name.toLowerCase().includes(filterExpenses)).sort((a, b) => (a[sortBy] > b[sortBy]) ? -1 : 1).map(({name, date, category, amount, id}) => (
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={name} >
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {name}
-              </Table.Cell>
-              <Table.Cell>
-                {amount}
-              </Table.Cell>
-              <Table.Cell>
-                {category}
-              </Table.Cell>
-              <Table.Cell>
-                {date}
-              </Table.Cell>
-              <Table.Cell>
-                <Link
-                  to={`/expenses/${id}`}
-                  className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                  state={{expenses}}
-                >
-                  Edit
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-          ))}
+             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={name} >
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {name}
+                </Table.Cell>
+                <Table.Cell>
+                  {amount}
+                </Table.Cell>
+                <Table.Cell>
+                 {category}
+                </Table.Cell>
+                <Table.Cell>
+                 {date}
+                </Table.Cell>
+                <Table.Cell>
+                  <Link
+                    to={`/expenses/${id}`}
+                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                   state={{expenses}}
+                  >
+                    Edit
+                  </Link>
+                </Table.Cell>
+              </Table.Row>
+            ))}
         </Table.Body>
       </Table>
     </div>

@@ -9,9 +9,6 @@ export default function Search () {
     const handleOnSearchChange = (e) =>{
       dispatch(filter(e.target.value))
     }
-    const onNameClick = () => {
-      dispatch(sortBy('name'))
-    }
     const onDateClick = () => {
       dispatch(sortBy('date'))
     }
