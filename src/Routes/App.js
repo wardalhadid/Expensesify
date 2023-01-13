@@ -8,9 +8,9 @@ function App() {
       <div>
       <Nav />
       </div>
-     <div className='flex'>
+     <div className='flex flex-col lg:flex-row'>
      <Side />
-     <div className='w-4/5'>
+     <div className='w-screen lg:w-4/5'>
       <ExpensesTable />
      </div>
      </div>

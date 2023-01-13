@@ -11,7 +11,7 @@ export default function Expenses () {
     <div>
       <Nav />
       <Search />
-      <ExpensesTable className="mobile"/> 
+      <ExpensesTable /> 
     </div>
   );
 }
@@ -25,10 +25,11 @@ export function ExpensesTable () {
       .then(response => response.data)
       .then(data => data.forEach(expense => setExpenses(ex => [...ex, expense])))
       .catch(error => console.error(error))
-  }, [])
+  }, []);
+  
   return(
     <div className="w-10/12 mx-auto my-8">
-      <Table hoverable={true} >
+      <Table hoverable={true}>
         <Table.Head>
           <Table.HeadCell>
             Name
