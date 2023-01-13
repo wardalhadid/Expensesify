@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 
 
 // .env setup
@@ -43,6 +42,18 @@ app.post('/api/add-expense', (req, res) =>{
 app.get('/api/expenses', async (req, res) => {
     const DBExpenses = await expenses.find({}).exec();
     res.json(DBExpenses);
+});
+// delete request
+app.post('/api/delete-expense', async (req, res) =>{
+    const {_id} = req.body;
+	await expenses.findOneAndDelete({_id}).exec();
+    res.send("delete expense success");
+});
+// update request
+app.post('/api/update-expense', async (req, res) =>{
+    const {name, amount, date, category, _id} = req.body;
+	await expenses.findOneAndUpdate({_id}, {name, date, amount, category}).exec();
+    res.send("update expense success");
 });
 
 app.listen(8000, () => {

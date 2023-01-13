@@ -2,7 +2,7 @@ import { Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Search from "../components/Search";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -49,8 +49,8 @@ export function ExpensesTable () {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {expenses.filter(expense => expense.name.toLowerCase().includes(filterExpenses)).sort((a, b) => (a[sortBy] > b[sortBy]) ? -1 : 1).map(({name, date, category, amount, id}) => (
-             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={name} >
+          {expenses.filter(expense => expense.name.toLowerCase().includes(filterExpenses)).sort((a, b) => (a[sortBy] > b[sortBy]) ? -1 : 1).map(({name, date, category, amount, _id}) => (
+             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={_id} >
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {name}
                 </Table.Cell>
@@ -65,9 +65,9 @@ export function ExpensesTable () {
                 </Table.Cell>
                 <Table.Cell>
                   <Link
-                    to={`/expenses/${id}`}
+                    to={`/expenses/${_id}`}
                     className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                   state={{expenses}}
+                    state={{expenses}}
                   >
                     Edit
                   </Link>

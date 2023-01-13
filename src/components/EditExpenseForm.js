@@ -1,15 +1,17 @@
 import { Label, TextInput, Button, Select } from "flowbite-react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { remove, edit } from '../slices/expensesReducer';
 import { useState } from "react";
+import axios from "axios";
 
 export default function EditExpenseForm() {
   const dispatch = useDispatch();
   const selectedId = useParams().id;
-  const expenses = useSelector(state => state.expenses);
-  const expense = expenses.filter(expense => expense.id === selectedId)[0];
-  const [edited, setEdited] = useState({id:selectedId});
+  const location = useLocation();
+  const expenses = location.state?.expenses;
+  const expense = expenses.filter(expense => expense._id === selectedId)[0];
+  const [edited, setEdited] = useState({_id:selectedId});
   const onNameChange = (e) => {
     const name = e.target.value;
     setEdited(o => ({...o, name}))
@@ -25,6 +27,18 @@ export default function EditExpenseForm() {
   const onCategoryChange = (e) => {
     const category = e.target.value
     setEdited(o => ({...o, category}))
+  }
+  const handleRemove = () => {
+    dispatch(remove(selectedId))
+    axios.post('http://localhost:8000/api/delete-expense', {...expense})
+     .then(res => console.log(res))
+     .catch(err => window.alert(err));
+  }
+  const handleUpdate = () => {
+    dispatch(edit(expense))
+    axios.post('http://localhost:8000/api/update-expense', {...edited})
+     .then(res => console.log(res))
+     .catch(err => window.alert(err));
   }
   return(
    <div className="flex flex-col gap-4 mx-auto w-10/12">
@@ -118,7 +132,7 @@ export default function EditExpenseForm() {
     <Button
       color="success"
       size="xl"
-      onClick={() => dispatch(edit(edited))}
+      onClick={handleUpdate}
         >
       Update
     </Button>
@@ -127,7 +141,7 @@ export default function EditExpenseForm() {
     <Button
       color="failure"
       size="xl"
-      onClick={() => dispatch(remove(selectedId))}
+      onClick={handleRemove}
       >
       Delete
     </Button>
