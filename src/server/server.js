@@ -23,10 +23,10 @@ mongoose.connect(ATLAS_URI, () => {
 //  Schema and Model
 const Schema = mongoose.Schema;
 const expensesSchema = new Schema({
-    name: String,
-    amount: Number,
-    date: String,
-    category: String
+    name: {type: String, require: true},
+    amount: {type: Number, require: true},
+    date: {type: String, require: true},
+    category: {type: String, require: true}
 }, 
 {collection: 'expenses', versioneKey: false});
 const expenses = mongoose.model('expenses', expensesSchema);
@@ -51,8 +51,8 @@ app.post('/api/delete-expense', async (req, res) =>{
 });
 // update request
 app.post('/api/update-expense', async (req, res) =>{
-    const {name, amount, date, category, _id} = req.body;
-	await expenses.findOneAndUpdate({_id}, {name, date, amount, category}).exec();
+    const {_id} = req.body;
+	await expenses.findOneAndUpdate({_id}, {...req.body}).exec();
     res.send("update expense success");
 });
 

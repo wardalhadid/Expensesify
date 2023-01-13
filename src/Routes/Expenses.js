@@ -11,7 +11,7 @@ export default function Expenses () {
     <div>
       <Nav />
       <Search />
-      <ExpensesTable /> 
+      <ExpensesTable className="mobile"/> 
     </div>
   );
 }
@@ -28,7 +28,7 @@ export function ExpensesTable () {
   }, [])
   return(
     <div className="w-10/12 mx-auto my-8">
-      <Table hoverable={true}>
+      <Table hoverable={true} >
         <Table.Head>
           <Table.HeadCell>
             Name
