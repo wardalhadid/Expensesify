@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Search from "../components/Search";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Expenses () {
   return(
@@ -15,10 +17,15 @@ export default function Expenses () {
 }
 
 export function ExpensesTable () {
-  const expenses = useSelector((state) => state.expenses);
-  console.log(expenses)
+  const [expenses, setExpenses] = useState([]);
   const sortBy = useSelector((state) => state.sortExpenses.sort)
   const filterExpenses= useSelector((state) => state.filterExpenses.filter.toLowerCase());
+  useEffect(() => {
+      axios.get('http://localhost:8000/api/expenses')
+      .then(response => response.data)
+      .then(data => data.forEach(expense => setExpenses(ex => [...ex, expense])))
+      .catch(error => console.error(error))
+  }, [])
   return(
     <div className="w-10/12 mx-auto my-8">
       <Table hoverable={true}>
