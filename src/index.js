@@ -11,27 +11,33 @@ import AddExpense from './Routes/AddExpense';
 import Expenses from "./Routes/Expenses";
 import ErrorPage from "./ErrorPage";
 import EditExpense from './Routes/EditExpense';
+import Login from './Routes/Login';
 import { Provider } from 'react-redux'
 import store from './store/store'
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/:user",
     element: <App />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/add-expense",
+    path: "/:user/add-expense",
     element: <AddExpense />,
     errorElement: <ErrorPage />,
   },
     {
-      path: "/expenses",
+      path: "/:user/expenses",
       element: <Expenses />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "/expenses/:id",
+      path: "/:user/expenses/:id",
       element: <EditExpense />,
       errorElement: <ErrorPage />,
     }

@@ -1,6 +1,7 @@
 import { Sidebar } from "flowbite-react";
 import { Link } from "react-router-dom";
 
+
 export default function Side () {
     return (
         <div className="w-fit">

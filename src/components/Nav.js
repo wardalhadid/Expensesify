@@ -1,7 +1,10 @@
 import { Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"
 
 export default function Nav() {
+  const user = useSelector(state => state.user);
+
     return(
         <Navbar
   fluid={true}
@@ -21,13 +24,10 @@ export default function Nav() {
   </Navbar.Brand>
   <Navbar.Toggle />
   <Navbar.Collapse>
-    <Link 
-      active="true"
-      to="/"
-    >
+  <Link to={`/${user.user}`}>
       Home
     </Link>
-    <Link to="/#">
+    <Link to="/">
       Logout
     </Link>
   </Navbar.Collapse>

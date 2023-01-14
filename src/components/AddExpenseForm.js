@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import { add } from '../slices/expensesReducer';
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function AddExpenseForm() {
   const dispatch = useDispatch();
+  const user= useParams();
   const [addedExpense, setAddedExpense] = useState({id: uuid()});
   const handleOnNameChange = (e) => {
     let addedName = {name: e.target.value}
@@ -28,7 +30,7 @@ export default function AddExpenseForm() {
 
   const handleOnSubmit = () => {
     const DBAddExpense = addedExpense
-     axios.post('http://localhost:8000/api/add-expense', {...DBAddExpense})
+     axios.post('http://localhost:8000/api/add-expense', {...DBAddExpense, ...user})
      .then(res => console.log(res))
     .catch(err => window.alert(err));
     dispatch(add(addedExpense));
@@ -117,7 +119,7 @@ export default function AddExpenseForm() {
     </Select>
   </div>
   <div className="mx-auto">
-  <Link to="/">
+  <Link to={`/${user.user}`}>
     <Button
       color="success"
       size="xl"

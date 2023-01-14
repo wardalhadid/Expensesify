@@ -1,5 +1,5 @@
 import { Table } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import Search from "../components/Search";
 import { useSelector} from "react-redux";
@@ -18,14 +18,15 @@ export default function Expenses () {
 
 export function ExpensesTable () {
   const [expenses, setExpenses] = useState([]);
+  const user = useParams();
   const sortBy = useSelector((state) => state.sortExpenses.sort)
   const filterExpenses= useSelector((state) => state.filterExpenses.filter.toLowerCase());
   useEffect(() => {
-      axios.get('http://localhost:8000/api/expenses')
+      axios.post('http://localhost:8000/api/expenses', {user})
       .then(response => response.data)
       .then(data => data.forEach(expense => setExpenses(ex => [...ex, expense])))
       .catch(error => console.error(error))
-  }, []);
+  }, [user]);
   
   return(
     <div className="w-10/12 mx-auto my-8">
@@ -66,7 +67,7 @@ export function ExpensesTable () {
                 </Table.Cell>
                 <Table.Cell>
                   <Link
-                    to={`/expenses/${_id}`}
+                    to={`/${user.user}/expenses/${_id}`}
                     className="font-medium text-blue-600 hover:underline dark:text-blue-500"
                     state={{expenses}}
                   >

@@ -8,10 +8,12 @@ import axios from "axios";
 export default function EditExpenseForm() {
   const dispatch = useDispatch();
   const selectedId = useParams().id;
+  const user = useParams().user;
   const location = useLocation();
   const expenses = location.state?.expenses;
   const expense = expenses.filter(expense => expense._id === selectedId)[0];
-  const [edited, setEdited] = useState({_id:selectedId});
+  const [edited, setEdited] = useState(expense);
+
   const onNameChange = (e) => {
     const name = e.target.value;
     setEdited(o => ({...o, name}))
@@ -30,13 +32,13 @@ export default function EditExpenseForm() {
   }
   const handleRemove = () => {
     dispatch(remove(selectedId))
-    axios.post('http://localhost:8000/api/delete-expense', {...expense})
+    axios.post('http://localhost:8000/api/delete-expense', {...expense, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
   const handleUpdate = () => {
     dispatch(edit(expense))
-    axios.post('http://localhost:8000/api/update-expense', {...edited})
+    axios.post('http://localhost:8000/api/update-expense', {...edited, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
@@ -128,7 +130,7 @@ export default function EditExpenseForm() {
     </Select>
   </div>
   <div className="mx-auto flex gap-6">
-  <Link to ="/">
+  <Link to ={`/${user}`}>
     <Button
       color="success"
       size="xl"
@@ -137,7 +139,7 @@ export default function EditExpenseForm() {
       Update
     </Button>
     </Link>
-    <Link to ="/">
+    <Link to ={`/${user}`}>
     <Button
       color="failure"
       size="xl"
