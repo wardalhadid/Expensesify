@@ -22,7 +22,7 @@ export function ExpensesTable () {
   const sortBy = useSelector((state) => state.sortExpenses.sort)
   const filterExpenses= useSelector((state) => state.filterExpenses.filter.toLowerCase());
   useEffect(() => {
-      axios.post('http://localhost:8000/api/expenses', {user})
+      axios.post('https://Expensesify-server.wardhadid.repl.co/api/expenses', {user})
       .then(response => response.data)
       .then(data => data.forEach(expense => setExpenses(ex => [...ex, expense])))
       .catch(error => console.error(error))

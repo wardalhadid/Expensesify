@@ -20,7 +20,7 @@ export default function EditExpenseForm() {
   }
   const onAmountChange = (e) => {
     const amount = e.target.value
-    setEdited(o => ({...o, amount: parseInt(amount)}))
+    setEdited(o => ({...o, amount: parseFloat(amount)}))
   }
   const onDateChange = (e) => {
     const date = e.target.value
@@ -32,13 +32,13 @@ export default function EditExpenseForm() {
   }
   const handleRemove = () => {
     dispatch(remove(selectedId))
-    axios.post('http://localhost:8000/api/delete-expense', {...expense, user: user})
+    axios.post('https://Expensesify-server.wardhadid.repl.co/api/delete-expense', {...expense, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
   const handleUpdate = () => {
     dispatch(edit(expense))
-    axios.post('http://localhost:8000/api/update-expense', {...edited, user: user})
+    axios.post('https://Expensesify-server.wardhadid.repl.co/api/update-expense', {...edited, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }

@@ -10,11 +10,11 @@ export default function Login () {
   const [username, setUsername] = useState()
   const handleInput = (e) => {
     const input = e.target.value
-    setUsername(input)
+    setUsername(input.toLowerCase())
   }
   const handleClick = () =>{
     dispatch(setUser(username))
-    axios.post("http://localhost:8000/api/login", {username: username})
+    axios.post("https://Expensesify-server.wardhadid.repl.co/api/login", {username: username})
     .then(res => console.log(res))
     .catch(err => window.alert(err));
   }
