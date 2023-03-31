@@ -16,7 +16,7 @@ export default function AddExpenseForm() {
     setAddedExpense((addExpense) => ({...addExpense, ...addedName}))
   }
   const handleOnAmountChange = (e) => {
-    let addedAmount = {amount: parseInt(e.target.value)}
+    let addedAmount = {amount: parseFloat(e.target.value)}
     setAddedExpense((addExpense) => ({...addExpense, ...addedAmount}))
   }
   const handleOnDateChange = (e) => {
@@ -30,7 +30,7 @@ export default function AddExpenseForm() {
 
   const handleOnSubmit = () => {
     const DBAddExpense = addedExpense
-     axios.post('http://localhost:8080/api/add-expense', {...DBAddExpense, ...user})
+     axios.post('http://localhost:8000/api/add-expense', {...DBAddExpense, ...user})
      .then(res => console.log(res))
     .catch(err => window.alert(err));
     dispatch(add(addedExpense));
@@ -50,6 +50,7 @@ export default function AddExpenseForm() {
       type="text"
       sizing="sm"
       onChange={handleOnNameChange}
+      required={true}
     />
   </div>
   <div>
@@ -65,6 +66,7 @@ export default function AddExpenseForm() {
       sizing="sm"
       placeholder="$"
       onChange={handleOnAmountChange}
+      required={true}
     />
   </div>
   <div>
@@ -79,6 +81,7 @@ export default function AddExpenseForm() {
       type="date"
       sizing="sm"
       onChange={handleOnDateChange}
+      required={true}
     />
   </div>
   <div>
@@ -91,6 +94,7 @@ export default function AddExpenseForm() {
     <Select
       id="select"
       onChange={handleOnCategoryChange}
+      required={true}
     >
     <option>
       Rent

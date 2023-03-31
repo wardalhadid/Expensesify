@@ -20,7 +20,7 @@ export default function EditExpenseForm() {
   }
   const onAmountChange = (e) => {
     const amount = e.target.value
-    setEdited(o => ({...o, amount: parseInt(amount)}))
+    setEdited(o => ({...o, amount: parseFloat(amount)}))
   }
   const onDateChange = (e) => {
     const date = e.target.value
@@ -32,13 +32,21 @@ export default function EditExpenseForm() {
   }
   const handleRemove = () => {
     dispatch(remove(selectedId))
+<<<<<<< HEAD
     axios.post('http://localhost:8080/api/delete-expense', {...expense, user: user})
+=======
+    axios.post('https://Expensesify-server.wardhadid.repl.co/api/delete-expense', {...expense, user: user})
+>>>>>>> 64ce26f3f3c49a582e0fff815e13bef60cc6a68e
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
   const handleUpdate = () => {
     dispatch(edit(expense))
+<<<<<<< HEAD
     axios.post('http://localhost:8080/api/update-expense', {...edited, user: user})
+=======
+    axios.post('https://Expensesify-server.wardhadid.repl.co/api/update-expense', {...edited, user: user})
+>>>>>>> 64ce26f3f3c49a582e0fff815e13bef60cc6a68e
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }

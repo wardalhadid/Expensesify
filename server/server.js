@@ -3,16 +3,22 @@ const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
 
-
 // .env setup
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, 'config.env') });
 
 // DB URI
 const ATLAS_URI = process.env['ATLAS_URI'];
+const PORT = process.env['PORT'] || 8080;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Connect DB
 mongoose.set("strictQuery", false);
@@ -52,14 +58,14 @@ app.post('/api/login', async (req, res) => {
 // post request
 app.post('/api/add-expense', async (req, res) =>{
   const {name, amount, date, category, user} = req.body;
-	const expense = {name, amount: parseInt(amount), date, category};
+	const expense = {name, amount: parseFloat(amount), date, category};
   await users.updateOne({username: user}, {$push: {expenses: [expense]}});
   res.send("success");
 });
 
-app.post('/api/expenses', (req, res) => {
+app.post('/api/expenses', async (req, res) => {
     const user = req.body.user;
-        users.findOne({username: user.user}, (err, exp) => {
+       await users.findOne({username: user.user}, (err, exp) => {
         if (err) {
           console.error(err);
         } else {
@@ -75,7 +81,7 @@ app.post('/api/delete-expense', async (req, res) =>{
 });
 // update request
 app.post('/api/update-expense', async (req, res) =>{
-  const {user, _id, name, amount, category, date} = req.body;
+  const {_id, name, amount, category, date} = req.body;
   await users.updateOne( { "expenses._id": _id },
    {$set: 
     { "expenses.$[xx]" : { name, amount, category, date }}
@@ -88,6 +94,6 @@ app.post('/api/update-expense', async (req, res) =>{
   res.send("update expense success");
 });
 
-app.listen(8000, () => {
-    console.log(`Server is running on port 8000.`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
   }); 
