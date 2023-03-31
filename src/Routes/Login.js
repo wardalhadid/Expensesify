@@ -14,7 +14,7 @@ export default function Login () {
   }
   const handleClick = () =>{
     dispatch(setUser(username))
-    axios.post("http://localhost:8000/api/login", {username: username})
+    axios.post("/api/login", {username: username})
     .then(res => console.log(res))
     .catch(err => window.alert(err));
   }

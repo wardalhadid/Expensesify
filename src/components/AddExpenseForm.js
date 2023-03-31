@@ -30,7 +30,7 @@ export default function AddExpenseForm() {
 
   const handleOnSubmit = () => {
     const DBAddExpense = addedExpense
-     axios.post('http://localhost:8000/api/add-expense', {...DBAddExpense, ...user})
+     axios.post('http://localhost:8080/api/add-expense', {...DBAddExpense, ...user})
      .then(res => console.log(res))
     .catch(err => window.alert(err));
     dispatch(add(addedExpense));

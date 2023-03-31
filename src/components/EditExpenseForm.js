@@ -32,13 +32,13 @@ export default function EditExpenseForm() {
   }
   const handleRemove = () => {
     dispatch(remove(selectedId))
-    axios.post('http://localhost:8000/api/delete-expense', {...expense, user: user})
+    axios.post('http://localhost:8080/api/delete-expense', {...expense, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
   const handleUpdate = () => {
     dispatch(edit(expense))
-    axios.post('http://localhost:8000/api/update-expense', {...edited, user: user})
+    axios.post('http://localhost:8080/api/update-expense', {...edited, user: user})
      .then(res => console.log(res))
      .catch(err => window.alert(err));
   }
